@@ -75,6 +75,7 @@ public class StudentServiceImpl implements StudentService {
 				.id(student.getId())
 				.name(student.getName())
 				.password(student.getPassword())
+				.group(student.getGroup())
 				.build();
 	}
 

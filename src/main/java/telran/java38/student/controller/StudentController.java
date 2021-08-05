@@ -17,12 +17,16 @@ import telran.java38.student.dto.StudentBaseDto;
 import telran.java38.student.dto.StudentDto;
 import telran.java38.student.dto.StudentUpdateDto;
 import telran.java38.student.service.StudentService;
+import telran.java38.student.service.security.StudentSecurityService;
 
 @RestController
 public class StudentController {
 
 	@Autowired
 	StudentService studentService;
+	
+	@Autowired
+	StudentSecurityService securityService;
 
 	@PostMapping("/student")
 	public boolean addStudent(@RequestBody StudentBaseDto studentCreateDto) {
@@ -42,7 +46,7 @@ public class StudentController {
 	@PutMapping("/student/{id}")
 	public StudentBaseDto updateStudent(@PathVariable Integer id,
 			@RequestBody StudentUpdateDto studentUpdateDto, @RequestHeader("Authorization") String token) {
-		System.out.println(token);
+		securityService.updateStudentValidate(id, token);
 		return studentService.updateStudent(id, studentUpdateDto);
 	}
 
